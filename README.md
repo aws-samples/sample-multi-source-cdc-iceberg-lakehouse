@@ -94,8 +94,8 @@ The architecture consists of five main layers:
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/aws-samples/sample-iceberg-ingestion-and-querying.git
-   cd sample-iceberg-ingestion-and-querying
+   git clone https://github.com/aws-samples/sample-multi-source-cdc-iceberg-lakehouse.git
+   cd sample-multi-source-cdc-iceberg-lakehouse
    ```
 
 2. **Configure your deployment environment:**
@@ -283,7 +283,7 @@ Data is stored under `s3://{APP}-{ENV}-iceberg-datalake-primary/` with Iceberg t
 ### Query Access Points
 
 - **Amazon Athena**: Query all databases and tables via SQL
-- **Snowflake**: External data warehouse integration (see [Snowflake Integration Guide](snowflake-integration/SNOWFLAKE_INTEGRATION.md))
+- **Snowflake**: External data warehouse integration (see [Snowflake Integration Guide](snowflake-integration/integration.md))
 
 ### Destroy Resources
 
@@ -318,7 +318,7 @@ make destroy-tf-backend-cf-stack
 ### Implementation Guides
 
 - **[Data Generator](iac/roots/datasources/data-generator/README.md)**: Synthetic data generation and schema details
-- **[Snowflake Integration](snowflake-integration/SNOWFLAKE_INTEGRATION.md)**: Querying Iceberg tables from an external Snowflake account
+- **[Snowflake Integration](snowflake-integration/integration.md)**: Querying Iceberg tables from an external Snowflake account
 
 ## Security
 
