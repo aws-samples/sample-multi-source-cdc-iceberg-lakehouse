@@ -5,8 +5,8 @@
 This is sample code, for non-production usage. You should work with your security and legal teams to meet your organizational security, regulatory and compliance requirements before deployment. Deploying this sample may incur AWS charges.
 
 > **⚠️ CockroachDB is deployed in insecure mode.** The CockroachDB cluster in
-> this sample starts with `--insecure` — no TLS, no authentication, no
-> authorization — and its SQL port (26257) is reachable from the entire VPC
+> this sample starts with `--insecure` - no TLS, no authentication, no
+> authorization - and its SQL port (26257) is reachable from the entire VPC
 > CIDR. Anyone with a network path into the VPC can connect as `root` with no
 > credentials and read, write, or drop data. This is acceptable for a
 > throwaway sample deployment only. Do not deploy this configuration to any
@@ -37,7 +37,7 @@ The Iceberg Data Lakehouse project creates a modern data platform that consolida
 
 ### Solution Vision
 
-The platform streams data from operational databases into a unified Apache Iceberg storage layer through two parallel real-time paths — a Firehose path and a Managed Apache Flink path — giving flexibility in how change data is captured and delivered.
+The platform streams data from operational databases into a unified Apache Iceberg storage layer through two parallel real-time paths - a Firehose path and a Managed Apache Flink path - giving flexibility in how change data is captured and delivered.
 
 ### Solution Architecture
 
@@ -54,7 +54,7 @@ The architecture consists of five main layers:
 ### Key Features
 
 - **Multi-source data integration**: Ingests data from Oracle, CockroachDB, Aurora PostgreSQL, and MSK
-- **Dual ingestion paths**: Two parallel real-time streaming paths — Firehose (Path 1) and Managed Apache Flink (Path 2)
+- **Dual ingestion paths**: Two parallel real-time streaming paths - Firehose (Path 1) and Managed Apache Flink (Path 2)
 - **Flexible ingestion mechanisms**: Uses AWS DMS, Amazon Data Firehose, MSK Connect (Debezium), and Apache Flink on Amazon Managed Service for Apache Flink
 - **Real-time data transformation**: Custom Lambda functions process DMS envelopes into flat transaction records
 - **Apache Iceberg format**: Stores data in S3 using the Apache Iceberg table format for efficient querying and analysis
@@ -117,7 +117,7 @@ The architecture consists of five main layers:
    make deploy-infra-all
    ```
 
-   > **⏱️ Deployment Time**: Complete deployment takes approximately **4.5–5 hours** due to MSK cluster provisioning (2 MSK clusters, ~1h40m for the ingest cluster alone). Start deployment early and keep your screen unlocked while performing other work.
+   > **⏱️ Deployment Time**: Complete deployment takes approximately **4.5-5 hours** due to MSK cluster provisioning (2 MSK clusters, ~1h40m for the ingest cluster alone). Start deployment early and keep your screen unlocked while performing other work.
 
    **Or deploy layer by layer (modules must be deployed in order due to dependencies):**
 
@@ -170,7 +170,7 @@ The architecture consists of five main layers:
 
    - **Deployment Order**: Modules have dependencies and must be deployed in the specified order
    - **Data Source Configuration**: If deploying only certain data sources, update `terraform.tfvars` in the data-generator module to set unused sources to `false` before deployment
-   - **CockroachDB Requirement (both paths)**: Before running data generation scripts, you must SSH into CockroachDB and create changefeeds. For Path 1 (Firehose), see [CockroachDB Firehose Stream documentation](iac/roots/ingestion-layer/firehose-streams/cockroach-financial-msk-firehose-stream/README.md). For Path 2 (Flink), changefeeds must use IAM authentication to write directly to MSK Ingest topics — the Apache Flink jobs then consume from those topics
+   - **CockroachDB Requirement (both paths)**: Before running data generation scripts, you must SSH into CockroachDB and create changefeeds. For Path 1 (Firehose), see [CockroachDB Firehose Stream documentation](iac/roots/ingestion-layer/firehose-streams/cockroach-financial-msk-firehose-stream/README.md). For Path 2 (Flink), changefeeds must use IAM authentication to write directly to MSK Ingest topics - the Apache Flink jobs then consume from those topics
 
 ### Data Generation
 
@@ -221,7 +221,7 @@ After deployment, start data generation to populate your data sources:
 
 After deployment, your Iceberg data lake will have the following structure:
 
-### Path 1 (Firehose) — Glue Catalog Databases (4 databases)
+### Path 1 (Firehose) - Glue Catalog Databases (4 databases)
 
 Located in AWS Glue Data Catalog, prefix `f_`:
 
@@ -230,7 +230,7 @@ Located in AWS Glue Data Catalog, prefix `f_`:
 3. **`{APP}_{ENV}_f_crdb`** - CockroachDB CDC data via Firehose
 4. **`{APP}_{ENV}_f_msk_src`** - Direct MSK streaming data via Firehose
 
-### Path 2 (Flink) — Glue Catalog Databases (4 databases)
+### Path 2 (Flink) - Glue Catalog Databases (4 databases)
 
 Located in AWS Glue Data Catalog, prefix `c_`:
 
@@ -297,8 +297,8 @@ make destroy-tf-backend-cf-stack
 ### Architecture Diagrams
 
 - **[High-Level Architecture](diagrams/high-level-architecture.png)**: Complete system overview (both ingestion paths)
-- **[Path 1 — Firehose](diagrams/path1-firehose.png)**: DMS/changefeed → MSK → Firehose → Lambda → Iceberg
-- **[Path 2 — Managed Apache Flink](diagrams/path2-managed-flink.png)**: Debezium source / changefeed → MSK → Flink → Iceberg
+- **[Path 1 - Firehose](diagrams/path1-firehose.png)**: DMS/changefeed → MSK → Firehose → Lambda → Iceberg
+- **[Path 2 - Managed Apache Flink](diagrams/path2-managed-flink.png)**: Debezium source / changefeed → MSK → Flink → Iceberg
 - **[Data Ingestion Flows](diagrams/data-ingestion-flows.md)**: Detailed per-source streaming flow diagrams
 - **[Snowflake Querying](diagrams/snowflake-querying.png)**: Querying Iceberg tables from Snowflake via the Glue Iceberg REST API
 

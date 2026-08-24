@@ -11,13 +11,13 @@ For instructions on how to **report a vulnerability**, see
 This sample is designed as a prototype/development environment. Multiple
 Checkov controls are intentionally suppressed and multiple defaults are
 relaxed to keep the sample simple, cheap, and easy to tear down. These are
-**not passed controls** — they are **explicitly accepted for sample use only**
+**not passed controls** - they are **explicitly accepted for sample use only**
 and must be addressed before any production deployment.
 
 ### CockroachDB runs in insecure mode
 
-The CockroachDB cluster starts with `--insecure` — no TLS, no
-authentication, no authorization — and its SQL port (26257) is reachable
+The CockroachDB cluster starts with `--insecure` - no TLS, no
+authentication, no authorization - and its SQL port (26257) is reachable
 from the entire VPC CIDR. Anyone with a network path into the VPC can
 connect as `root` with no credentials. See
 [iac/roots/datasources/cockroach/README.md](iac/roots/datasources/cockroach/README.md)
@@ -41,7 +41,7 @@ Rules suppressed: `CKV_AWS_382`, `CKV2_AWS_5`, `CKV_AWS_23`, `CKV_AWS_24`,
 
 Some security groups permit `0.0.0.0/0` egress (Flink needs unrestricted
 outbound to reach MSK, S3, Glue, CloudWatch, and KMS endpoints). Some SG
-findings are false positives — self-referencing ingress or groups attached
+findings are false positives - self-referencing ingress or groups attached
 via `vpc_configuration.security_group_ids` that Checkov cannot follow. For
 production, use VPC endpoints where available and tighten egress to
 specific service prefix lists.
@@ -101,9 +101,9 @@ Rules suppressed: `CKV_AWS_50` (X-Ray), `CKV_AWS_116` (Lambda DLQ),
 `CKV_AWS_272` (Lambda code signing), `CKV_AWS_152` (NLB cross-zone),
 `CKV_AWS_91` (ALB access logs), `CKV_AWS_241` (Firehose CMK),
 `CKV_AWS_240` (Firehose SSE), `CKV_AWS_79/126/135/8`, `CKV2_AWS_41`
-(EC2 defaults configured via launch template — Checkov false positive),
+(EC2 defaults configured via launch template - Checkov false positive),
 `CKV2_AWS_34` (SSM parameter encryption for non-sensitive metadata),
-`CKV_AWS_130` (public subnet — intentional).
+`CKV_AWS_130` (public subnet - intentional).
 
 Enable each of these controls according to your production observability,
 resilience, and encryption requirements.
@@ -182,7 +182,7 @@ or `Makefile` targets. Current verification posture:
 For production, add SHA-256 verification to every remaining unpinned
 download (see the same `sha256sum -c` / `shasum -a 256 -c` pattern used in
 `iac/roots/datasources/oracle/scripts/user_data.sh` and
-`Makefile:setup-connector-plugins`). Do not rely on version pins alone —
+`Makefile:setup-connector-plugins`). Do not rely on version pins alone  - 
 they do not detect upstream artifact replacement or account compromise.
 
 - Generate and review `THIRD-PARTY-LICENSES`

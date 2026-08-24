@@ -1,4 +1,4 @@
-# Managed Flink — Path 2 Ingestion
+# Managed Flink - Path 2 Ingestion
 
 <!--
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -20,8 +20,8 @@ Each app writes to two tables in its database: `fin` (financial) and `brk` (brok
 
 ## Resources
 
-- `aws_iam_role.flink_role` — service execution role (Glue, S3, MSK IAM, KMS, Logs, VPC ENI)
-- `aws_security_group.flink` — egress-only SG attached to each Flink app
+- `aws_iam_role.flink_role` - service execution role (Glue, S3, MSK IAM, KMS, Logs, VPC ENI)
+- `aws_security_group.flink` - egress-only SG attached to each Flink app
 - `aws_cloudwatch_log_group.flink` + 4 × `aws_cloudwatch_log_stream.flink`
 - 4 × `aws_kinesisanalyticsv2_application.flink` (iterated via `for_each` over `local.apps`)
 - `aws_ssm_parameter.flink_role_arn` → `/${APP}/${ENV}/flink-role-arn`
