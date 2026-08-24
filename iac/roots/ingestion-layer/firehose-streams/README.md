@@ -92,8 +92,8 @@ LOG_RETENTION_DAYS = 3     # Shorter retention for cost savings
 
 ### Complete Deployment (Recommended)
 ```bash
-# Deploy all 8 streams as part of ingestion layer
-make deploy-ingestion-layer
+# Deploy all 8 streams
+make deploy-all-firehose-streams
 ```
 
 ### Individual Stream Deployment
