@@ -29,8 +29,8 @@ Modules are reusable infrastructure building blocks that are used by higher-leve
 
 ### Database Modules
 
-- **[aurora](aurora/)**: Aurora PostgreSQL cluster with serverless v2 configuration
-  - Serverless v2 auto-scaling
+- **[aurora](aurora/)**: Aurora PostgreSQL cluster with provisioned instances
+  - Configurable instance class per environment
   - Multi-AZ deployment options
   - Security group and subnet group management
   - Parameter group customization

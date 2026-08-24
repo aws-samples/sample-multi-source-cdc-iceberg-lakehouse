@@ -26,21 +26,21 @@ Creates 8 Kinesis Data Firehose delivery streams that ingest data from MSK topic
 | `oracle-brokerage-msk-firehose-stream` | `deploy-obmfs` | Oracle DB | Brokerage | ✅ | `msk-ingest-oracle-brokerage-transactions` |
 | `aurora-financial-msk-firehose-stream` | `deploy-afmfs` | Aurora PG | Financial | ✅ | `msk-ingest-aurora-financial-transactions` |
 | `aurora-brokerage-msk-firehose-stream` | `deploy-abmfs` | Aurora PG | Brokerage | ✅ | `msk-ingest-aurora-brokerage-transactions` |
-| `cockroach-financial-msk-firehose-stream` | `deploy-cfmfs` | CockroachDB | Financial | ❌ | `cockroach-financial-transactions` |
-| `cockroach-brokerage-msk-firehose-stream` | `deploy-cbmfs` | CockroachDB | Brokerage | ❌ | `cockroach-brokerage-transactions` |
+| `cockroach-financial-msk-firehose-stream` | `deploy-cfmfs` | CockroachDB | Financial | ✅ | `cockroach-financial-transactions` |
+| `cockroach-brokerage-msk-firehose-stream` | `deploy-cbmfs` | CockroachDB | Brokerage | ✅ | `cockroach-brokerage-transactions` |
 | `msk-financial-firehose-stream` | `deploy-mffs` | MSK Direct | Financial | ❌ | `financial-transactions` |
 | `msk-brokerage-firehose-stream` | `deploy-mbfs` | MSK Direct | Brokerage | ❌ | `brokerage-transactions` |
 
 ### Data Flow Patterns
 
-#### CDC Sources (Oracle, Aurora) - With Lambda Transformation
+#### CDC Sources (Oracle, Aurora, CockroachDB) - With Lambda Transformation
 1. **Database** → DMS captures changes → MSK topic (DMS envelope format)
 2. **MSK Topic** → Firehose stream consumes messages
 3. **Lambda Transformer** → Flattens DMS envelope to transaction record
 4. **Iceberg Table** → Stores transformed data in S3 with Glue catalog
 
-#### Direct Sources (MSK, CockroachDB) - No Transformation
-1. **Data Generator/CockroachDB** → Publishes directly to MSK topic (flat format)
+#### Direct Sources (MSK) - No Transformation
+1. **Data Generator** → Publishes directly to MSK topic (flat format)
 2. **MSK Topic** → Firehose stream consumes messages
 3. **Iceberg Table** → Stores data directly in S3 with Glue catalog
 

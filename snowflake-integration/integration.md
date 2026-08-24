@@ -4,7 +4,7 @@ This document provides comprehensive documentation on how to create a Catalog In
 
 ## Overview
 
-The Glue Iceberg Data Catalog can be integrated with Snowflake to enable querying of Iceberg tables directly from Snowflake. This integration allows user to leverage Snowflake's powerful analytics capabilities while keeping thier data in the S3-based Iceberg format.
+The Glue Iceberg Data Catalog can be integrated with Snowflake to enable querying of Iceberg tables directly from Snowflake. This integration allows users to use Snowflake's analytics capabilities while keeping their data in the S3-based Iceberg format.
 
 ### Prerequisites
 

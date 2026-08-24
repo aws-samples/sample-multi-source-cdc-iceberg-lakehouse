@@ -245,7 +245,7 @@ destroy-cockroach:
 	TF_MODE=destroy scripts/tf.sh datasources/cockroach
 	@echo "Finished Destroying Cockroach DB"
 
-##################### MSK SOURCE (CONFLUENT KAFKA REPLICATOR) ##################
+############################### MSK SOURCE ####################################
 
 deploy-msk-source:
 	@echo "Deploying MSK Source"
@@ -439,7 +439,7 @@ deploy-cockroach-brokerage-msk-firehose-stream:
 	@echo "Finished Deploying CockroachDB Brokerage Firehose Stream"
 
 destroy-cockroach-brokerage-msk-firehose-stream:
-	@echo "Destroying CockroachDB Financial Brokerage Stream"
+	@echo "Destroying CockroachDB Brokerage Stream"
 	TF_MODE=destroy scripts/tf.sh ingestion-layer/firehose-streams/cockroach-brokerage-msk-firehose-stream $(args)
 	@echo "Finished Destroying CockroachDB Brokerage Firehose Stream"
 

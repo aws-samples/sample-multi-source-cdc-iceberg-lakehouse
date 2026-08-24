@@ -172,7 +172,7 @@ source_endpoint_config = {
 ```
 
 **Oracle-specific attributes:**
-- `useLogminerReader=N`: Use Oracle native LogMiner
+- `useLogminerReader=N`: Disable LogMiner and use Binary Reader instead
 - `useBfile=Y`: Enable binary file access
 - `addSupplementalLogging=Y`: Add supplemental logging automatically
 

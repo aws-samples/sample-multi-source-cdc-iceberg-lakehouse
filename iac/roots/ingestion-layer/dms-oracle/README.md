@@ -1,17 +1,17 @@
 # DMS Oracle Data Replication
 
 ## Purpose
-Creates AWS Database Migration Service (DMS) resources to replicate data from Oracle Database to Amazon MSK using LogMiner-based change data capture (CDC), enabling real-time streaming of financial and brokerage transaction data.
+Creates AWS Database Migration Service (DMS) resources to replicate data from Oracle Database to Amazon MSK using Binary Reader-based change data capture (CDC), enabling real-time streaming of financial and brokerage transaction data.
 
 ## What It Creates
 - **DMS Replication Instance**: Multi-AZ capable instance for Oracle data replication
-- **Source Endpoint**: Oracle endpoint with LogMiner CDC configuration
+- **Source Endpoint**: Oracle endpoint with Binary Reader CDC configuration
 - **Target Endpoint**: MSK endpoint with SASL/SCRAM authentication
 - **Replication Task**: CDC task with dual-topic routing for transaction types
 - **IAM Roles**: Required DMS service roles with KMS encryption permissions
 
 ## Why It's Needed
-- **Oracle CDC Integration**: Captures Oracle changes using LogMiner without impacting performance
+- **Oracle CDC Integration**: Captures Oracle changes using Binary Reader without impacting performance
 - **Dual Transaction Processing**: Routes financial and brokerage transactions to separate MSK topics
 - **Legacy System Integration**: Connects Oracle databases to modern streaming architecture
 - **Real-time Data Pipeline**: Enables downstream processing via Firehose and Lambda
@@ -52,7 +52,7 @@ DMS_MULTI_AZ                 = false
 START_ORACLE_REPLICATION_TASK = false
 ```
 
-## Oracle LogMiner Configuration
+## Oracle CDC Reader Configuration
 
 ### Connection Attributes
 ```
@@ -112,7 +112,7 @@ The module implements dual-topic routing for transaction types:
 ```
 
 ## Key Features
-- LogMiner-based CDC for minimal Oracle performance impact
+- Binary Reader-based CDC for minimal Oracle performance impact
 - Automatic supplemental logging configuration
 - KMS encryption for data at rest and in transit
 - Multi-AZ deployment support for high availability
@@ -122,7 +122,7 @@ The module implements dual-topic routing for transaction types:
 
 ## Dependencies
 - Foundation layer (VPC, KMS keys, IAM roles)
-- Oracle Database with LogMiner enabled and supplemental logging
+- Oracle Database with archive logging and supplemental logging enabled
 - MSK cluster with SASL/SCRAM authentication
 - Required SSM parameters:
   - `/{APP}/{ENV}/oracle-user`
@@ -136,13 +136,13 @@ The module implements dual-topic routing for transaction types:
 
 ## Oracle Prerequisites
 - Oracle Database 12c or higher with PDB architecture
-- LogMiner enabled and configured
+- Archive log mode enabled and configured
 - C##DMSUSER common user with Binary Reader privileges (connects to CDB root)
 - Supplemental logging enabled on source tables
 - Archive log mode enabled for CDC
 
 ## Monitoring and Troubleshooting
 - CloudWatch logs integration for DMS task monitoring
-- LogMiner session monitoring through Oracle views
-- Binary file access validation for LogMiner
+- Redo/archive log monitoring through Oracle views
+- Binary file access validation for the Binary Reader
 - Task status monitoring through AWS console and CLI
