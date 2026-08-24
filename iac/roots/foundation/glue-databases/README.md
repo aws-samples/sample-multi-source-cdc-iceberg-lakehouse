@@ -5,7 +5,7 @@ Creates AWS Glue catalog databases for organizing metadata from multiple data so
 
 ## What It Creates
 
-**9 Glue Catalog Databases** organized by ingestion path:
+**8 Glue Catalog Databases** organized by ingestion path:
 
 - **4 Firehose databases** (Path 1, prefix `f_`): `f_oracle`, `f_aurora`, `f_crdb`, `f_msk_src`
 - **4 Connect databases** (Path 2, prefix `c_`): `c_oracle`, `c_aurora`, `c_crdb`, `c_msk_src`
@@ -39,5 +39,5 @@ Database names use shortened conventions defined in `terraform.tfvars` and resol
 - Foundation layer (IAM roles, KMS keys)
 
 ## Outputs
-- Database names and ARNs for all nine transaction databases
+- Database names and ARNs for all eight transaction databases
 - SSM parameter paths for programmatic access

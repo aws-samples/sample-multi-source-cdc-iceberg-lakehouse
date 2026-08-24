@@ -64,9 +64,9 @@ module "database_server" {
     }
   ]
 
-  user_data = base64encode(templatefile("scripts/setup.sh", {
+  user_data = templatefile("scripts/setup.sh", {
     DATABASE_NAME = "oracle"
-  }))
+  })
 }
 ```
 
@@ -222,7 +222,7 @@ module "app_server" {
   instance_type = "t3.medium"
   subnet_id     = data.aws_subnet.private.id
   
-  user_data = base64encode(file("scripts/app-setup.sh"))
+  user_data = file("scripts/app-setup.sh")
 }
 ```
 

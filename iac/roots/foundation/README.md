@@ -6,7 +6,7 @@ The foundation layer provides the core infrastructure components for the Iceberg
 
 ## Architecture Components
 
-The foundation layer consists of 8 core modules that must be deployed first to establish the infrastructure foundation:
+The foundation layer consists of 7 core modules that must be deployed first to establish the infrastructure foundation:
 
 ### 1. KMS Keys Module
 **Purpose**: Encryption keys for all AWS services across primary and secondary regions

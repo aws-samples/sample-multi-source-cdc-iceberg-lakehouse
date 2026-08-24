@@ -29,16 +29,16 @@ Both paths write to S3 Iceberg and S3 Tables in parallel.
 
 ## Data Flow Patterns
 
-### Real-time CDC Streaming (4 streams with Lambda transformation)
+### Real-time CDC Streaming (6 streams with Lambda transformation)
 
 ```
 Oracle/Aurora ──CDC──▶ DMS ──▶ MSK ──▶ Firehose ──▶ Lambda ──▶ S3 Iceberg + S3 Tables
+CockroachDB ──Changefeed──▶ MSK ──▶ Firehose ──▶ Lambda ──▶ S3 Iceberg + S3 Tables
 ```
 
-### Direct Streaming (4 streams without transformation)
+### Direct Streaming (2 streams without transformation)
 
 ```
-CockroachDB ──Changefeed──▶ MSK ──▶ Firehose (no Lambda) ──▶ S3 Iceberg + S3 Tables
 EC2 Data Generator ──▶ MSK Source ──▶ Firehose (no Lambda) ──▶ S3 Iceberg + S3 Tables
 ```
 

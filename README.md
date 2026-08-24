@@ -214,7 +214,7 @@ After deployment, start data generation to populate your data sources:
    ##### IMPORTANT #####
    # Before running CockroachDB data generation scripts, you must SSH into CockroachDB and enable changefeeds.
    # See CockroachDB Financial/Brokerage Firehose Stream documentation for changefeed setup instructions.
-   # Without this step, no CockroachDB data ingestion will  occur.
+   # Without this step, no CockroachDB data ingestion will occur.
    ##### IMPORTANT #####
    ./cockroach/run-cockroach-financial.sh 1000
    ./cockroach/run-cockroach-brokerage.sh 500
