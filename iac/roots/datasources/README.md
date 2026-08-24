@@ -106,7 +106,7 @@ make deploy-datasources
 make deploy-oracle      # Oracle Database 21c XE
 make deploy-aurora      # Aurora PostgreSQL cluster
 make deploy-cockroach   # CockroachDB distributed cluster
-make deploy-msk         # MSK provisioned cluster
+make deploy-msk-source  # MSK provisioned cluster
 make deploy-data-generator  # Data generation EC2 instance
 ```
 

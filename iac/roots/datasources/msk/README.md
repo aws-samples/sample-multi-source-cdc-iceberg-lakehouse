@@ -107,23 +107,10 @@ These placeholders are automatically replaced by the deployment scripts with act
 
 ```bash
 # Deploy MSK data source module
-make deploy-msk
+make deploy-msk-source
 
 # Destroy MSK data source module
-make destroy-msk
-
-# Plan MSK data source deployment
-make plan-msk
-```
-
-For customer deployments:
-
-```bash
-# Deploy MSK data source module
-make -f Makefile-4-customer deploy-msk
-
-# Destroy MSK data source module
-make -f Makefile-4-customer destroy-msk
+make destroy-msk-source
 ```
 
 ### Direct Terraform
