@@ -11,8 +11,8 @@ This Terraform root module deploys **four Amazon Managed Service for Apache Flin
 
 | App key      | Main class                                      | Source → Topics                                | Target Glue DB              |
 | ------------ | ----------------------------------------------- | ---------------------------------------------- | --------------------------- |
-| `oracle`     | `com.aws.iceberg.flink.job.DebeziumCdcJob`      | `topic-dbz-oracle-fin` / `topic-dbz-oracle-brk` | `{APP}_{ENV}_c_oracle`      |
-| `aurora`     | `com.aws.iceberg.flink.job.DebeziumCdcJob`      | `topic-dbz-aurora-fin` / `topic-dbz-aurora-brk` | `{APP}_{ENV}_c_aurora`      |
+| `oracle`     | `com.aws.iceberg.flink.job.OracleCdcJob`        | `topic-dbz-oracle-fin` / `topic-dbz-oracle-brk` | `{APP}_{ENV}_c_oracle`      |
+| `aurora`     | `com.aws.iceberg.flink.job.AuroraCdcJob`        | `topic-dbz-aurora-fin` / `topic-dbz-aurora-brk` | `{APP}_{ENV}_c_aurora`      |
 | `cockroach`  | `com.aws.iceberg.flink.job.CockroachCdcJob`     | `topic-crdb-fin` / `topic-crdb-brk`             | `{APP}_{ENV}_c_crdb`        |
 | `msk_source` | `com.aws.iceberg.flink.job.MskAppendJob`        | `topic-msk-src-fin` / `topic-msk-src-brk`       | `{APP}_{ENV}_c_msk_src`     |
 

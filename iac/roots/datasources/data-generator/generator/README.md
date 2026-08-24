@@ -314,12 +314,12 @@ java -Xms2g -Xmx8g -jar generator.jar --continuous --duration 86400
 - **Kafka Client**: MSK publishing capabilities
 
 ### Database Drivers
-- **PostgreSQL**: `org.postgresql:postgresql:42.5.1`
-- **Oracle**: `com.oracle.database.jdbc:ojdbc11:21.7.0.0`
-- **MySQL**: `com.mysql:mysql-connector-j:8.0.32`
-- **SQL Server**: `com.microsoft.sqlserver:mssql-jdbc:11.2.3.jre17`
+- **PostgreSQL**: `org.postgresql:postgresql:42.7.4`
+- **Oracle**: `com.oracle.database.jdbc:ojdbc11:23.5.0.24.07` (provided scope, not bundled; see the repository README prerequisites)
+- **MySQL**: `com.mysql:mysql-connector-j:8.4.0`
+- **SQL Server**: `com.microsoft.sqlserver:mssql-jdbc:12.10.0.jre11`
 
 ### AWS Integration
-- **MSK IAM Auth**: `software.amazon.msk:aws-msk-iam-auth:1.1.5`
+- **MSK IAM Auth**: `software.amazon.msk:aws-msk-iam-auth:2.2.0`
 - **Secrets Manager**: AWS SDK v2 for credential management
 - **IAM Authentication**: Integrated AWS credential chain support

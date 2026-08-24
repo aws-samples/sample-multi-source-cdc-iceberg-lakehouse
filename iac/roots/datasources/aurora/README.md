@@ -62,7 +62,7 @@ make connect-to-aurora
 
 ## Key Features
 - Encrypted storage and automatic password generation
-- Enhanced monitoring with 5-minute intervals
+- Enhanced monitoring with 5-second intervals
 - IAM database authentication enabled
 - Optional bastion host with SSM Session Manager access
 - Automatic minor version upgrades

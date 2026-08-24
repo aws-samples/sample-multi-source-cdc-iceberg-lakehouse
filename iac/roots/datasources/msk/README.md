@@ -2,7 +2,7 @@
 
 ## Overview
 
-This module provisions Amazon MSK (Managed Streaming for Apache Kafka) infrastructure as a data source for the Iceberg Data Lakehouse project. It creates a provisioned MSK cluster that serves as a primary streaming data source, receiving data from Lambda functions and other streaming applications.
+This module provisions Amazon MSK (Managed Streaming for Apache Kafka) infrastructure as a data source for the Iceberg Data Lakehouse project. It creates a provisioned MSK cluster that serves as a primary streaming data source, receiving data from the EC2-based Java data generator and other Kafka producers.
 
 ## Architecture
 
@@ -10,12 +10,12 @@ The MSK data source module creates the following components:
 
 ```
 ┌─────────────────────┐    ┌──────────────────────┐    ┌─────────────────────┐
-│   Data Generator    │───▶│  MSK Source          │───▶│  AWS Glue           │
-│   Lambda Functions  │    │  Cluster             │    │  Streaming Jobs     │
+│   Data Generator    │───▶│  MSK Source          │───▶│  Managed Service    │
+│   EC2 (Java)        │    │  Cluster             │    │  for Apache Flink   │
 │                     │    │                      │    │                     │
-│ • Scheduled Events  │    │ • Provisioned MSK    │    │ • Stream Processing │
-│ • Streaming Data    │    │ • Auto Scaling       │    │ • Data Transform    │
-│ • Real-time Events  │    │ • Private Subnets    │    │ • S3 Delivery       │
+│ • Synthetic Records │    │ • Provisioned MSK    │    │ • Stream Processing │
+│ • Streaming Data    │    │ • Multi-AZ Brokers   │    │ • Data Transform    │
+│ • Real-time Events  │    │ • Private Subnets    │    │ • Iceberg Delivery  │
 └─────────────────────┘    └──────────────────────┘    └─────────────────────┘
                                       │
                                       ▼
@@ -141,13 +141,13 @@ This module uses Terraform S3 backend with the following configuration:
 
 ### Data Producers
 
-- **Data Generator Lambda Functions**: Publish streaming events to MSK topics
+- **EC2 Java Data Generator**: Publishes streaming events to MSK topics
 - **External Applications**: Can publish data via Kafka producers
 - **Scheduled Jobs**: Generate periodic data for testing and simulation
 
 ### Data Consumers
 
-- **AWS Glue Streaming**: Processes streaming data from MSK topics
+- **Amazon Managed Service for Apache Flink**: Processes streaming data from MSK topics
 - **Amazon Data Firehose**: Consumes data from MSK for delivery to S3
 - **Custom Applications**: Can consume data via Kafka consumers
 
@@ -398,8 +398,6 @@ iac/roots/datasources/msk/
 ├── README.md              # This documentation
 ├── backend.tf             # Terraform S3 backend configuration
 ├── cluster.tf             # MSK cluster resource using module template
-├── ec2.tf                 # Management EC2 instance and IAM configuration
-├── ec2-user-data.sh       # EC2 initialization script
 ├── lookups.tf             # Data sources for VPC and subnet information
 ├── provider.tf            # AWS provider configuration
 ├── sg.tf                  # Security group definitions
@@ -426,7 +424,7 @@ Additional resource-specific tags are applied as appropriate.
 
 ## Integration Examples
 
-### Lambda Function Producer
+### Example: Python producer (generic pattern, not deployed by this project)
 
 ```python
 import json
@@ -459,7 +457,7 @@ def get_aws_token():
     pass
 ```
 
-### Glue Streaming Job Consumer
+### Example: Spark Structured Streaming consumer (generic pattern, not deployed by this project)
 
 ```python
 from pyspark.sql import SparkSession

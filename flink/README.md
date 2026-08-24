@@ -52,9 +52,9 @@ When deployed to AWS Managed Apache Flink, configuration is provided via **appli
 The fat JAR is uploaded to S3 and referenced by the Managed Apache Flink application Terraform module at `iac/roots/flink/`.
 
 ```bash
-# Upload to the artifacts bucket
-aws s3 cp target/flink-iceberg-sink-1.0-SNAPSHOT.jar \
-  s3://${APP_NAME}-${ENV_NAME}-iceberg-datalake-primary/flink-apps/
+# Build and upload to the assets bucket at key flink/flink-iceberg-sink-1.0-SNAPSHOT.jar
+# (bucket name is read from the SSM parameter /${APP_NAME}/${ENV_NAME}/assets-bucket-name)
+make upload-flink-app
 
 # Deploy via Terraform
 make deploy-flink

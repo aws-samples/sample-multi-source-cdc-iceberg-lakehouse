@@ -311,7 +311,7 @@ ALTER DATABASE ADD SUPPLEMENTAL LOG DATA (ALL) COLUMNS;
 
 ##### 4. **CDC Performance Optimization - Deep Analysis**
 
-The script includes a critical optimization function `optimize_oracle_cdc_performance()` that addresses fundamental Oracle logging bottlenecks:
+The script includes an inline SQL optimization block that addresses fundamental Oracle logging bottlenecks:
 
 ###### **Redo Log Size Optimization**
 
@@ -335,13 +335,13 @@ ALTER DATABASE ADD LOGFILE GROUP 6 '/opt/oracle/oradata/XE/redo06.log' SIZE 50M;
 
 - **200MB logs**: At 1MB/hour transaction rate = 200 hours to switch
 - **50MB logs**: At 1MB/hour transaction rate = 50 hours to switch
-- **With archive_lag_target**: Maximum 2 minutes regardless of transaction volume
+- **With archive_lag_target**: Maximum 30 seconds regardless of transaction volume
 
 ###### **Archive Lag Target - Time-Based Log Switching**
 
 ```sql
--- Configure automatic log switching (every 2 minutes)
-ALTER SYSTEM SET archive_lag_target = 120 SCOPE=BOTH;
+-- Configure automatic log switching (every 30 seconds)
+ALTER SYSTEM SET archive_lag_target = 30 SCOPE=BOTH;
 ```
 
 **Mechanism**:
@@ -355,7 +355,7 @@ ALTER SYSTEM SET archive_lag_target = 120 SCOPE=BOTH;
 
 - **Benefits**: Guaranteed CDC latency, consistent change availability
 - **Costs**: Increased archive log volume, more frequent I/O operations
-- **Optimal Value**: 120 seconds balances latency vs overhead
+- **Configured Value**: 30 seconds prioritizes low CDC latency over log-switch overhead
 
 ###### **Log Buffer Optimization**
 
@@ -415,13 +415,13 @@ Timeline:     Immediate    Immediate    2-24 hours      +Minutes   +Processing
 
 ```
 Transaction → Redo Buffer → 50MB Log → Max 2 Minutes → Archive → CDC Access
-Timeline:     Immediate    Immediate    0-2 minutes     +Seconds   +Processing
+Timeline:     Immediate    Immediate    0-30 seconds    +Seconds   +Processing
 ```
 
 **Quantitative Benefits**:
 
 - **CDC Latency**: Reduced from hours to minutes (99%+ improvement)
-- **Change Availability**: Guaranteed within 2 minutes
+- **Change Availability**: Guaranteed within 30 seconds
 - **Throughput**: Higher CDC processing rate due to consistent flow
 - **Reliability**: Eliminates CDC starvation scenarios
 
@@ -577,7 +577,7 @@ Redo Record Structure:
   "after_image": {
     "TRANSACTION_ID": "TXN_001",
     "TRANSACTION_TYPE": "PURCHASE",
-    "AMOUNT": 150.0,
+    "AMOUNT": 150.0
   }
 }
 ```
@@ -617,7 +617,7 @@ Redo Record Structure:
     "TRANSACTION_ID": "TXN_001",
     "TRANSACTION_TYPE": "PURCHASE",
     "AMOUNT": 150.0,
-    "STATUS": "COMPLETED",
+    "STATUS": "COMPLETED"
   }
 }
 ```
@@ -1455,9 +1455,9 @@ Scenario: 1MB/hour transaction rate
 ├── Archive Volume: 12 files per 25 days
 └── Storage Efficiency: Lower (more files)
 
-50MB Logs + archive_lag_target=120:
-├── Switch Frequency: Every 2 minutes maximum
-├── CDC Latency: Maximum 2 minutes
+50MB Logs + archive_lag_target=30:
+├── Switch Frequency: Every 30 seconds maximum
+├── CDC Latency: Maximum 30 seconds
 ├── Archive Volume: 720 files per day (worst case)
 └── Storage Efficiency: Lowest (many small files)
 ```
@@ -1615,7 +1615,7 @@ AND s1.name IN ('redo size', 'redo entries')
 ALTER SYSTEM SET log_buffer = 8388608 SCOPE=SPFILE;                    -- 8MB log buffer
 ALTER SYSTEM SET log_checkpoint_interval = 0 SCOPE=BOTH;               -- Disable interval checkpoints
 ALTER SYSTEM SET log_checkpoint_timeout = 1800 SCOPE=BOTH;             -- 30-minute timeout checkpoints
-ALTER SYSTEM SET archive_lag_target = 120 SCOPE=BOTH;                  -- 2-minute max lag
+ALTER SYSTEM SET archive_lag_target = 30 SCOPE=BOTH;                   -- 30-second max lag
 ALTER SYSTEM SET log_archive_max_processes = 4 SCOPE=BOTH;             -- 4 archive processes
 ALTER SYSTEM SET commit_write = 'BATCH,NOWAIT' SCOPE=BOTH;             -- Async commit for performance
 ALTER SYSTEM SET disk_asynch_io = TRUE SCOPE=SPFILE;                   -- Async I/O for redo
@@ -1625,7 +1625,7 @@ ALTER SYSTEM SET filesystemio_options = 'SETALL' SCOPE=SPFILE;         -- All I/
 **Parameter Justification**:
 
 - **log_buffer**: Larger buffer reduces LGWR frequency
-- **log*checkpoint*\***: Optimizes checkpoint timing for CDC
+- **`log_checkpoint_*`**: Optimizes checkpoint timing for CDC
 - **archive_lag_target**: Guarantees CDC data availability
 - **log_archive_max_processes**: Parallel archiving for high volume
 - **commit_write**: Faster commits improve CDC throughput
@@ -1709,7 +1709,7 @@ ORDER BY timestamp DESC;
 
 4. **High CDC Latency**:
    - Implement smaller redo logs (50MB)
-   - Set archive_lag_target to 120 seconds
+   - Set archive_lag_target to 30 seconds
    - Optimize log buffer settings
 
 ### Helper Scripts
@@ -1952,7 +1952,7 @@ ALTER DATABASE ADD LOGFILE GROUP 5 '/opt/oracle/oradata/XE/redo05.log' SIZE 50M;
 ALTER DATABASE ADD LOGFILE GROUP 6 '/opt/oracle/oradata/XE/redo06.log' SIZE 50M;
 
 # Configure automatic log switching
-ALTER SYSTEM SET archive_lag_target = 120 SCOPE=BOTH;
+ALTER SYSTEM SET archive_lag_target = 30 SCOPE=BOTH;
 ```
 
 ### Checking Oracle CDC Status
@@ -1991,7 +1991,7 @@ ALTER SYSTEM ARCHIVE LOG CURRENT;
 The script implements several optimizations for low-latency CDC:
 
 1. **Smaller Redo Logs**: 50MB logs vs default 200MB
-2. **Automatic Log Switching**: Every 2 minutes maximum
+2. **Automatic Log Switching**: Every 30 seconds maximum
 3. **Optimized Log Buffer**: 8MB for faster writes
 4. **Fast Checkpoints**: 60-second recovery target
 
