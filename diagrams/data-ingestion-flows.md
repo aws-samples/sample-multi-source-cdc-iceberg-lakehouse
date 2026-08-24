@@ -6,10 +6,10 @@ This document provides detailed diagrams for the different data ingestion flows 
 
 The Iceberg Data Lakehouse ingests the same source data through **two parallel streaming paths**:
 
-1. **Path 1 — Firehose**: source → MSK → Kinesis Data Firehose → Lambda transform → Iceberg (`f_*` tables)
-2. **Path 2 — Apache Flink**: source → MSK (Debezium source connector for Oracle/Aurora; native changefeed/direct for CockroachDB/MSK) → Managed Apache Flink → Iceberg (`c_*` tables)
+1. **Path 1 - Firehose**: source → MSK → Kinesis Data Firehose → Lambda transform → Iceberg (`f_*` tables)
+2. **Path 2 - Apache Flink**: source → MSK (Debezium source connector for Oracle/Aurora; native changefeed/direct for CockroachDB/MSK) → Managed Apache Flink → Iceberg (`c_*` tables)
 
-Everything is streaming — there is no batch path. The diagrams below detail the **Path 1 (Firehose)** flow per source; Path 2 consumes the same MSK topics with a dedicated Flink application per source.
+Everything is streaming - there is no batch path. The diagrams below detail the **Path 1 (Firehose)** flow per source; Path 2 consumes the same MSK topics with a dedicated Flink application per source.
 
 ## Real-time Streaming Ingestion Flows
 

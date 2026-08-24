@@ -230,7 +230,7 @@ After deployment, the ingestion layer creates:
 - **Path 1 (Firehose)**: `{app}_{env}_f_oracle`, `{app}_{env}_f_aurora`, `{app}_{env}_f_crdb`, `{app}_{env}_f_msk_src`
 - **Path 2 (Flink)**: `{app}_{env}_c_oracle`, `{app}_{env}_c_aurora`, `{app}_{env}_c_crdb`, `{app}_{env}_c_msk_src`
 
-#### Iceberg Tables (16 total — 2 per database: `fin`, `brk`)
+#### Iceberg Tables (16 total - 2 per database: `fin`, `brk`)
 
 - **Path 1**: `{db}.fin`, `{db}.brk` for each of the 4 Firehose databases
 - **Path 2**: `{db}.fin`, `{db}.brk` for each of the 4 Flink databases

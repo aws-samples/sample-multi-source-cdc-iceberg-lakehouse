@@ -66,7 +66,7 @@ make deploy-flink
 flink/
 ├── pom.xml                              # Maven build with shade plugin
 └── src/main/java/com/aws/iceberg/flink/
-    ├── MainDispatcher.java              # Entry point — dispatches to job class
+    ├── MainDispatcher.java              # Entry point - dispatches to job class
     ├── job/
     │   ├── OracleCdcJob.java            # Oracle Debezium CDC → Iceberg
     │   ├── AuroraCdcJob.java            # Aurora Debezium CDC → Iceberg
