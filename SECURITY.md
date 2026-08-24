@@ -171,7 +171,7 @@ or `Makefile` targets. Current verification posture:
 |---|---|---|---|
 | Debezium Oracle connector plugin | Maven Central (`repo1.maven.org`) | yes | **yes** |
 | Debezium PostgreSQL connector plugin | Maven Central (`repo1.maven.org`) | yes | **yes** |
-| Oracle JDBC driver `ojdbc8` | Maven Central (`repo1.maven.org`) | yes | **yes** |
+| Oracle JDBC driver `ojdbc11` | Maven Central (`repo1.maven.org`) | yes | **yes** |
 | `compat-openssl10` RPM | Rocky Linux (`dl.rockylinux.org`) | yes | **yes** |
 | CockroachDB Linux tarball | `binaries.cockroachdb.com` | yes | no |
 | Oracle Database XE RPM | `download.oracle.com` | yes | no |
