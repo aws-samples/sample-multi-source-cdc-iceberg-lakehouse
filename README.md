@@ -70,24 +70,19 @@ The architecture consists of five main layers:
 - AWS Account with appropriate permissions
 - Terraform >= 1.8.0
 - AWS CLI configured with appropriate credentials (set `AWS_PROFILE` in your shell if using a named profile)
-- **(Optional)** AWS Session Manager Plugin (required for connecting to data sources)
+- **(Optional)** AWS Session Manager Plugin (required for connecting to data sources) -
+  see the [install instructions](https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-install-plugin.html)
 
-- **(Optional — Oracle datasource only)** Oracle JDBC Driver
+- **(Optional - Oracle datasource only)** Oracle JDBC Driver
 
   The Oracle JDBC driver (`ojdbc11`) is not bundled due to its proprietary license
   (Oracle Free Use Terms and Conditions). If you plan to use the Oracle datasource,
-  download the driver from
-  [Oracle's JDBC Downloads page](https://www.oracle.com/database/technologies/appdev/jdbc-downloads.html)
-  and place it in the data-generator classpath:
-
-  ```bash
-  cp ojdbc11-23.5.0.24.07.jar iac/roots/datasources/data-generator/generator/lib/
-  ```
-
-  ```bash
-  # Install Session Manager Plugin for secure connections
-  # See: https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-install-plugin.html
-  ```
+  edit [`iac/roots/datasources/data-generator/generator/pom.xml`](iac/roots/datasources/data-generator/generator/pom.xml)
+  and change the `ojdbc11` dependency scope from `provided` to `compile` before
+  deploying the datasources. The data generator instance builds the jar at boot,
+  so Maven downloads the driver from Maven Central and bundles it. Downloading it
+  this way means you accept Oracle's license terms. The other datasources
+  (Aurora PostgreSQL, CockroachDB, MSK) work without this step.
 
 ### Quick Deployment
 
