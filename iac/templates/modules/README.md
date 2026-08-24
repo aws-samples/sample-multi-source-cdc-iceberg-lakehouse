@@ -64,7 +64,7 @@ Modules are reusable infrastructure building blocks that are used by higher-leve
 ### Data Catalog Modules
 
 - **[glue-transactions-table](glue-transactions-table/)**: AWS Glue Iceberg table with financial/brokerage schemas
-  - Selectable `TABLE_TYPE` (financial or brokerage) with ~200 columns each
+  - Selectable `TABLE_TYPE` (financial or brokerage) with 101 and 180 columns respectively
   - `UPPERCASE_COLUMNS` flag for Oracle compatibility
   - Apache Iceberg format with typed column definitions
   - Used by both Firehose roots and Connect-path pre-created tables

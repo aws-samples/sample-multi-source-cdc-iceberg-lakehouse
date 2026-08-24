@@ -1,5 +1,7 @@
 # **Iceberg Data Lakehouse** : _A comprehensive data platform for multi-source ingestion, real-time processing, and analytics using Apache Iceberg on AWS_
 
+> **Companion blog post:** [From Transactional Databases to Iceberg: Building a Multi-Source CDC Lakehouse on AWS](https://builder.aws.com/content/3GmMQ4omxiNwpRq5cndOCdRNn83) on AWS Builder Center walks through this architecture end to end, compares the two ingestion paths, and shows how to query the results from Athena and Snowflake.
+
 ## Important Notice
 
 This is sample code, for non-production usage. You should work with your security and legal teams to meet your organizational security, regulatory and compliance requirements before deployment. Deploying this sample may incur AWS charges.

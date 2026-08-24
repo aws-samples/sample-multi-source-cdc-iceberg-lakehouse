@@ -106,7 +106,7 @@ The architecture deploys 8 distinct firehose streams covering all data source an
 - Handle schema evolution automatically
 
 **Direct Sources**: No transformation needed:
-- Data already in flat transaction format from Lambda generators
+- Data already in flat transaction format from the EC2 Java data generator
 - Direct passthrough to Iceberg format
 - Optimized for performance with minimal processing
 

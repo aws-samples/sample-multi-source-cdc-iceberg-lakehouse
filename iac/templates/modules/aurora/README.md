@@ -122,7 +122,7 @@ resource "aws_rds_cluster" "aurora" {
 
 The module enables comprehensive monitoring:
 
-- **Enhanced Monitoring**: 5-minute intervals with detailed metrics
+- **Enhanced Monitoring**: 5-second intervals with detailed metrics
 - **CloudWatch Integration**: Automatic log group creation
 - **Performance Insights**: Available for troubleshooting
 - **IAM Role**: Dedicated monitoring role with proper permissions

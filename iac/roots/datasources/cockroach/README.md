@@ -170,8 +170,8 @@ You can start the nodes manually or automate the process using systemd. The foll
 2. **Install CockroachDB for Linux**:
    ```bash
    # Download and install CockroachDB binary
-   wget -qO- https://binaries.cockroachdb.com/cockroach-v25.2.0.linux-amd64.tgz | tar xvz
-   sudo cp -i cockroach-v25.2.0.linux-amd64/cockroach /usr/local/bin/
+   wget -qO- https://binaries.cockroachdb.com/cockroach-v25.2.2.linux-amd64.tgz | tar xvz
+   sudo cp -i cockroach-v25.2.2.linux-amd64/cockroach /usr/local/bin/
    ```
 
 3. **Create the CockroachDB directory**:
@@ -260,8 +260,8 @@ After all nodes are configured and started, complete the cluster initialization:
 
 1. **Install CockroachDB on your local machine** (if not already installed):
    ```bash
-   wget -qO- https://binaries.cockroachdb.com/cockroach-v25.2.0.linux-amd64.tgz | tar xvz
-   sudo cp -i cockroach-v25.2.0.linux-amd64/cockroach /usr/local/bin/
+   wget -qO- https://binaries.cockroachdb.com/cockroach-v25.2.2.linux-amd64.tgz | tar xvz
+   sudo cp -i cockroach-v25.2.2.linux-amd64/cockroach /usr/local/bin/
    ```
 
 2. **Initialize the cluster**:

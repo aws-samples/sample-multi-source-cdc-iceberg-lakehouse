@@ -33,7 +33,7 @@ The data sources layer consists of 5 core modules that provide diverse data sour
 - **Database**: `equitydb` with master user credentials in Secrets Manager
 - **Security Group**: PostgreSQL access from private subnets
 - **Optional Bastion Host**: EC2 instance for secure database access via SSM
-- **Enhanced Monitoring**: 5-minute intervals with performance insights
+- **Enhanced Monitoring**: 5-second intervals with performance insights
 
 **Use Cases:**
 - Source system simulation for financial systems
@@ -56,11 +56,11 @@ The data sources layer consists of 5 core modules that provide diverse data sour
 - Multi-region data replication
 - Changefeed-based streaming integration
 
-### 4. MSK (Managed Streaming for Kafka) Module
-**Purpose**: Serverless Kafka cluster for streaming data sources
+### 4. MSK (Managed Streaming for Apache Kafka) Module
+**Purpose**: Provisioned Kafka cluster for streaming data sources
 
 **Key Resources:**
-- **Serverless MSK Cluster**: Auto-scaling Kafka cluster
+- **Provisioned MSK Cluster**: Multi-broker Kafka cluster
 - **Security Groups**: MSK cluster and EC2 management clients
 - **Management EC2**: Kafka topic management and monitoring
 - **SASL/IAM Authentication**: AWS service integration
@@ -68,7 +68,7 @@ The data sources layer consists of 5 core modules that provide diverse data sour
 
 **Use Cases:**
 - Primary streaming data source
-- Lambda function data publishing
+- EC2-based Java data generator publishing
 - Real-time event processing
 - Streaming analytics integration
 
@@ -77,7 +77,7 @@ The data sources layer consists of 5 core modules that provide diverse data sour
 
 **Key Resources:**
 - **EC2 Instance**: Comprehensive transaction data generator
-- **Multi-format Support**: Financial and brokerage transaction data (~200 columns each)
+- **Multi-format Support**: Financial (101 columns) and brokerage (180 columns) transaction data
 - **Database Integration**: PostgreSQL, Oracle, MySQL, SQL Server support
 - **MSK Publishing**: Kafka producer capabilities
 - **Flexible Configuration**: Command-line options for various scenarios
@@ -135,15 +135,15 @@ make connect-to-data-generator  # Data generator instance
 ### Direct Streaming Sources
 **Data Generator** → MSK → Firehose → S3 Iceberg (no transformation)
 
-- Lambda-generated synthetic data
+- Synthetic data from the EC2 Java data generator
 - Pre-formatted transaction records
 - Direct MSK publishing without CDC overhead
 
 ## Data Generation Capabilities
 
 ### Transaction Types
-- **Financial Transactions**: ~200 columns including customer demographics, merchant info, payment methods, risk indicators
-- **Brokerage Transactions**: ~200 columns including order management, security details, execution data, compliance fields
+- **Financial Transactions**: 101 columns including customer demographics, merchant info, payment methods, risk indicators
+- **Brokerage Transactions**: 180 columns including order management, security details, execution data, compliance fields
 
 ### Generation Modes
 - **Console Output**: JSON formatted transaction data
